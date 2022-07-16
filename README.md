@@ -35,7 +35,7 @@ Instala os seguintes apps externos:
 ### Como usar
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/stenioas/popos-postinstall/main/postinstall.sh | bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/stenioas/popos-postinstall/main/postinstall.sh)"
 ```
 
 ### Contribuindo
