@@ -12,9 +12,13 @@ Script de pós-instalação do **Pop!\_OS 22.04 LTS**, que utilizo em minhas má
 
 Primeiro, instale todas as atualizações disponíveis. Se optar por não seguir este passo o script poderá não funcionar corretamente!
 
+💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
+
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+
+💡 **dica:** Caso ocorra algum erro durante a atualização, execute o comando novamente!
 
 Reinicie a máquina após a conclusão de todas as atualizações!
 

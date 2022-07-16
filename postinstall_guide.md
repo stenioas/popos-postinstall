@@ -113,7 +113,7 @@ curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmo
 
 #### Microsoft Teams
 
-💡 **info:** Se você instalou o Microsoft Edge, uma mensagem para sobrescrever a chave gpg irá aparecer, tecle `s` e Enter.
+💡 **info:** Se você instalou o Microsoft Edge, uma mensagem para sobrescrever a chave gpg irá aparecer, tecle `s` e Enter.<br/>
 💡 **dica:** Eu prefiro a versão web do Teams, é mais atualizada e com menos bugs que a versão desktop.<br/>
 
 ```bash
