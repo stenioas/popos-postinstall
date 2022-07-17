@@ -53,14 +53,30 @@ hostnamectl set-hostname "nome_da_sua_maquina"
 
 #### Atualize o sistema
 
+💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
+
+Primeiro, altere a região dos espelhos para o Brasil:
+
+```bash
+sudo sed -i 's|http://us.|http://br.|' /etc/apt/sources.list.d/system.sources
+```
+
+Atualize o sistema:
+
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
+
+Atualize a partição de recuperação:
+
+```bash
+sudo pop-upgrade recovery upgrade from-release
 ```
 
 Reinicie a máquina após concluir as atualizações!
 
 ```bash
-reboot
+sudo reboot now
 ```
 
 <span id="apps"></span>
@@ -134,7 +150,7 @@ curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmo
 sudo apt install zsh -y
 ```
 
-Altere o shell padrão
+Altere o shell padrão:
 
 ```bash
 chsh -s $(which zsh)
@@ -189,7 +205,7 @@ sudo apt install fzf -y
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-Adicione o Starship ao arquivo `~/.zshrc`
+Adicione o Starship ao arquivo `~/.zshrc`:
 
 ```bash
 echo -e '\n# Starship prompt\neval "$(starship init zsh)"' >> ~/.zshrc
@@ -223,13 +239,13 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 
 <details><summary><b>Bash</b></summary><br/>
 
-Adicione o asdf ao arquivo `~/.bashrc`
+Adicione o asdf ao arquivo `~/.bashrc`:
 
 ```bash
 echo -e '\n# asdf\n. $HOME/.asdf/asdf.sh\n# asdf completions\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
 ```
 
-Recarregue as configurações do bash
+Recarregue as configurações do bash:
 
 ```bash
 source ~/.bashrc
@@ -239,13 +255,13 @@ source ~/.bashrc
 
 <details><summary><b>Zsh</b></summary><br/>
 
-Adicione o asdf ao arquivo `~/.zshrc`
+Adicione o asdf ao arquivo `~/.zshrc`:
 
 ```bash
 echo -e '\n# asdf\n. $HOME/.asdf/asdf.sh\n# append completions to fpath\nfpath=(${ASDF_DIR}/completions $fpath)\n# initialise completions with ZSHs compinit\nautoload -Uz compinit && compinit' >> ~/.zshrc
 ```
 
-Recarregue as configurações do zsh
+Recarregue as configurações do zsh:
 
 ```bash
 source ~/.zshrc
@@ -278,14 +294,6 @@ Para outros plugins e como utilizá-los acesse [asdf-plugins.](https://github.co
 #### Docker CLI
 
 [![Docs-docker](https://img.shields.io/badge/-docs-2496ED?style=flat)](https://docs.docker.com/get-started/)
-
-Pré-requisitos:
-
-```bash
-sudo apt install ca-certificates gnupg curl lsb-release -y
-```
-
-Instale com o comando abaixo:
 
 ```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list && sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
@@ -425,7 +433,7 @@ Instale o jogo através desse [script](https://lutris.net/games/league-of-legend
 
 [![LoL-video-instalacao](https://img.shields.io/badge/-Vídeo_de_instalação-FF0000?&logo=youtube&style=flat)](https://www.youtube.com/watch?v=voVvLfS3rw8&t=176s)
 
-Execute o comando abaixo para resolver o erro de inicialização do jogo
+Execute o comando abaixo para resolver o erro de inicialização do jogo:
 
 ```bash
 sudo sysctl -w "abi.vsyscall32=0" && sudo sh -c 'echo "# League of Legends\nabi.vsyscall32=0" > /etc/sysctl.d/99-lol.conf'
