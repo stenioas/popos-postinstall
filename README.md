@@ -1,7 +1,7 @@
 # popos-postinstall
 
 <p>
-  <img src="https://img.shields.io/badge/version-0.0.1-AAF683?style=flat">&nbsp;<img src="https://img.shields.io/badge/maintained%3F-Yes-339933?style=flat">&nbsp;<img src="https://img.shields.io/github/license/stenioas/popos-postinstall?style=flat">&nbsp;<img src="https://img.shields.io/github/issues/stenioas/popos-postinstall?color=violet&style=flat">&nbsp;<img src="https://img.shields.io/github/stars/stenioas/popos-postinstall?style=flat">
+  <img src="https://img.shields.io/badge/version-0.0.2-AAF683?style=flat">&nbsp;<img src="https://img.shields.io/badge/maintained%3F-Yes-339933?style=flat">&nbsp;<img src="https://img.shields.io/github/license/stenioas/popos-postinstall?style=flat">&nbsp;<img src="https://img.shields.io/github/issues/stenioas/popos-postinstall?color=violet&style=flat">&nbsp;<img src="https://img.shields.io/github/stars/stenioas/popos-postinstall?style=flat">
 </p>
 
 Script de pós-instalação do **Pop!\_OS 22.04 LTS**, que utilizo em minhas máquinas pessoais, fique a vontade para modificar e utilizar da forma que achar melhor! Se preferir você pode seguir meu [guia de instalação](https://github.com/stenioas/popos-postinstall/blob/main/postinstall_guide.md).

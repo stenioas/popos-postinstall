@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # Script   : install.sh
 # Descrição: Script de pós-instalação do Pop!_OS 22.04
-# Versão   : 0.0.1
+# Versão   : 0.0.2
 # Autor    : Stenio Silveira <stenioas@gmail.com>
 # Data     : 03/07/2022
 # Licença  : GNU/GPL v3.0
