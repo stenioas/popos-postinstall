@@ -53,14 +53,30 @@ hostnamectl set-hostname "nome_da_sua_maquina"
 
 #### Atualize o sistema
 
+💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
+
+Primeiro, altere a região dos espelhos para o Brasil.
+
+```bash
+sudo sed -i 's|http://us.|http://br.|' /etc/apt/sources.list.d/system.sources
+```
+
+Atualize o sistema.
+
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
+
+Atualize a partição de recuperação.
+
+```bash
+sudo pop-upgrade recovery upgrade from-release
 ```
 
 Reinicie a máquina após concluir as atualizações!
 
 ```bash
-reboot
+sudo reboot now
 ```
 
 <span id="apps"></span>
@@ -278,12 +294,6 @@ Para outros plugins e como utilizá-los acesse [asdf-plugins.](https://github.co
 #### Docker CLI
 
 [![Docs-docker](https://img.shields.io/badge/-docs-2496ED?style=flat)](https://docs.docker.com/get-started/)
-
-Pré-requisitos:
-
-```bash
-sudo apt install ca-certificates gnupg curl lsb-release -y
-```
 
 Instale com o comando abaixo:
 
