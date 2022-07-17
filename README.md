@@ -20,7 +20,7 @@ Primeiro, altere a região dos espelhos para o Brasil.
 sudo sed -i 's|http://us.|http://br.|' /etc/apt/sources.list.d/system.sources
 ```
 
-Atualize o sistema
+Atualize o sistema.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
