@@ -12,7 +12,7 @@
 # VARIÁVEIS GLOBAIS
 # ----------------------------------------------------------------------------
 
-# cursor
+# customização do cursor
 BOLD="$(tput bold 2>/dev/null || printf '')"
 RESET="$(tput sgr0 2>/dev/null || printf '')"
 UNDERLINE="$(tput smul 2>/dev/null || printf '')"
@@ -28,14 +28,17 @@ WHITE="$(tput setaf 7 2>/dev/null || printf '')"
 # título do script
 TITLE="Pop!_OS 22.04 LTS - Script de pós-instalação"
 
+# diretório temporário
+DIR_TEMP="$HOME/Downloads/temp"
+
 # lista de pacotes essenciais
 PKGS_LIST="lame libavcodec-extra vlc gimp inkscape simplescreenrecorder \
           transmission-gtk papirus-icon-theme gnome-tweaks dconf-editor \
-          htop gparted neofetch gpick code zsh fzf ca-certificates gnupg \
-          curl lsb-release wine64 wine32 libasound2-plugins:i386 \
-          libsdl2-2.0-0:i386 libdbus-1-3:i386 libsqlite3-0:i386 lutris \
-          steam-installer"
+          htop gparted neofetch gpick code zsh fzf wine64 wine32 \
+          libasound2-plugins:i386 libsdl2-2.0-0:i386 libdbus-1-3:i386 \
+          libsqlite3-0:i386 lutris steam-installer"
 
+# lista de pacotes externos
 PKGS_LIST_EXT="google-chrome-stable brave-browser spotify-client \
               docker-ce docker-ce-cli containerd.io \
               docker-compose-plugin insomnia"
@@ -47,9 +50,10 @@ PKGS_LIST_EXT="google-chrome-stable brave-browser spotify-client \
 # imprime o título do script
 _title() {
   clear
-  _line
-  echo " ${BOLD}${TITLE}${RESET}"
-  _line
+  _dline
+  echo -e "${BOLD}# ${TITLE}${RESET}"
+  _dline
+  printf '\n'
 }
 
 # imprime subtítulos
@@ -58,23 +62,27 @@ _subtitle() {
   _line
 }
 
+# imprime itens
+_item() {
+  echo -e "$1 ${BOLD}${YELLOW}$2${RESET}..."
+}
+
 # imprime mensagem da ação atual
 _action() {
   echo -n "$1"
   tput sc
 }
 
-# imprime linha da largura do console
+# imprime linha simples da largura do console
 _line() {
   local t_cols=$(tput cols)
   echo -e "${CYAN}$(seq -s '-' $(( t_cols + 1 )) | tr -d "[:digit:]")${RESET}"
 }
 
-# imprime retorno de sucesso
-_checkmark() {
-  tput rc
-  tput cuf 1
-  echo "Pronto"
+# imprime linha dupla da largura do console
+_dline() {
+  local t_cols=$(tput cols)
+  echo -e "${CYAN}$(seq -s '=' $(( t_cols + 1 )) | tr -d "[:digit:]")${RESET}"
 }
 
 # imprime retorno de sucesso
@@ -88,19 +96,23 @@ _done() {
 _error() {
   tput rc
   tput cuf 1
-  echo -e "\n${RED}${BOLD}ERRO:${RESET} ${BOLD}$@${RESET}"
+  if [[ "$#" -ne 0 ]]; then
+    echo "${RED}${BOLD}Erro:${RESET} ${BOLD}$@${RESET}"
+  else
+    echo "${RED}${BOLD}Algo deu errado!${RESET}"
+  fi
 }
 
 # imprime retorno de alerta
 _warn() {
   tput rc
   tput cuf 1
-  echo -e "${YELLOW}${BOLD}oops!${RESET} ${BOLD}$@${RESET}"
+  echo -e "${YELLOW}${BOLD}Aviso:${RESET} ${BOLD}$@${RESET}"
 }
 
 # imprime mensagem informativa
 _info() {
-  echo " ${BLUE}${BOLD}==> info:${RESET} $@"
+  echo -e "${BLUE}${BOLD}Info:${RESET} ${BOLD}$@${RESET}"
 }
 
 # spinner de progresso de ação
@@ -137,6 +149,11 @@ _pause() {
   read -e -sn 1 -p "Pressione qualquer tecla para continuar..."
 }
 
+_create_dirs() {
+  _action "Criando pasta temporária..."
+  mkdir -p $HOME/Downloads/temp &> /dev/null & PID=$!; _progress $PID
+}
+
 # verifica conexão com a internet
 _check_connection() {
   _connection_test() {
@@ -144,7 +161,7 @@ _check_connection() {
   }
   _action "Verificando conexão com a internet..."
   if ! _connection_test; then
-    _checkmark
+    _done
   else
     _error "Você está desconectado!"
     _line
@@ -171,7 +188,10 @@ _upgrade() {
 
 # instala pacote com apt install
 _package_install() {
-    sudo apt install -y $@
+  for PKG in $1; do
+    _item "Instalando" "$PKG"
+    sudo apt install $PKG -y
+  done
 }
 
 # verifica se o pacote já existe no sistema
@@ -180,12 +200,13 @@ _is_package_installed() {
   return 1
 }
 
-_clean() {
-  _subtitle "Limpando o sistema..."
+_apt_autoclean() {
   _action "Limpando cache de pacotes..."
   sudo apt autoclean -y &> /dev/null & PID=$!; _progress $PID
+}
 
-  _action "Limpando pacotes desnecessários..."
+_apt_autoremove() {
+  _action "Removendo pacotes desnecessários..."
   sudo apt autoremove -y &> /dev/null & PID=$!; _progress $PID
 }
 
@@ -239,13 +260,11 @@ _set_insomnia() {
 }
 
 _install_dbeaver() {
-  local file_path=~/Downloads/dbeaver-ce_latest_amd64.deb
-  _action "Baixando .deb do Dbeaver..."
-  wget -c -O $file_path "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb" &> /dev/null & PID=$!; _progress $PID
-  _action "Instalando Dbeaver..."
-  sudo dpkg -i "$file_path" &> /dev/null & PID=$!; _progress $PID
-  _action "Removendo pacote baixado..."
-  rm $file_path &> /dev/null & PID=$!; _progress $PID
+  local file_path="$DIR_TEMP/dbeaver-ce_latest_amd64.deb"
+  _item "Baixando .deb do" "Dbeaver"
+  wget -c -O "$file_path" "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
+  _item "Instalando" "Dbeaver"
+  sudo dpkg -i "$file_path"
 }
 
 _set_default_shell() {
@@ -333,6 +352,16 @@ _set_ohmyzsh_plugins() {
   fi
 }
 
+_clean() {
+  _subtitle "Limpando o sistema"
+  _apt_autoclean
+  _apt_autoremove
+
+  _action "Removendo pasta temporária..."
+  sudo rm -rf $DIR_TEMP &> /dev/null & PID=$!; _progress $PID
+  
+}
+
 # ============================================================================
 # FUNÇÕES MACRO
 # ----------------------------------------------------------------------------
@@ -340,16 +369,17 @@ _init() {
   # apenas para autenticar como sudo antes do script iniciar realmente
   sudo ls > /dev/null
   _title
-  read -e -sn 1 -p "Pressione qualquer tecla para iniciar!"
+  _pause
   _title
   _check_connection
+  _create_dirs
 }
 
 _setup() {
-  _subtitle "Instalando pacotes essenciais..."
+  _subtitle "Instalando pacotes essenciais"
   _package_install "$PKGS_LIST"
 
-  _subtitle "Configurando respositórios externos..."
+  _subtitle "Configurando respositórios externos"
   _set_chrome
   _set_brave
   _set_spotify
@@ -358,22 +388,25 @@ _setup() {
 
   _update
   
-  _subtitle "Instalando pacotes externos..."
+  _subtitle "Instalando pacotes externos"
   _package_install "$PKGS_LIST_EXT"
   _install_dbeaver
 
-  _subtitle "Customizando o terminal..."
+  _subtitle "Customizando o terminal"
   _set_default_shell
   _set_ohmyzsh
   _set_starship
   _set_asdf
   _set_ohmyzsh_plugins
+
+  _update
+  _upgrade
 }
 
 _finish() {
   _clean
-  _line
-  echo "${BOLD}Concluído!${RESET}"
+  _dline
+  echo -e "\n${BOLD}Concluído!${RESET}\n"
 }
 
 # ============================================================================
