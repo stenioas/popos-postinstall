@@ -40,8 +40,7 @@ PKGS_LIST="lame libavcodec-extra vlc gimp inkscape simplescreenrecorder \
 
 # lista de pacotes externos
 PKGS_LIST_EXT="google-chrome-stable brave-browser spotify-client \
-              docker-ce docker-ce-cli containerd.io \
-              docker-compose-plugin insomnia"
+              docker-ce docker-compose-plugin insomnia"
 
 # ============================================================================
 # FUNÇÕES COMUNS
