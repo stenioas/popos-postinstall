@@ -139,6 +139,11 @@ _progress() {
   tput cnorm
 }
 
+_reboot() {
+  read -p "Deseja reiniciar a máquina? [S/n]: " OPTION
+  [[ ${OPTION,,} != "n" ]] && sudo reboot now
+}
+
 # pausa a ação e aguarda pressionar qualquer tecla
 _pause() {
   read -e -sn 1 -p "Pressione qualquer tecla para continuar..."
@@ -401,6 +406,7 @@ _finish() {
   _clean
   _dline
   echo -e "\n${BOLD}Concluído!${RESET}\n"
+  _reboot
 }
 
 # ============================================================================
