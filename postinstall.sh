@@ -51,7 +51,7 @@ PKGS_LIST_EXT="google-chrome-stable brave-browser spotify-client \
 _title() {
   clear
   _dline
-  echo -e "${BOLD}# ${TITLE}${RESET}"
+  echo -e "${CYAN}# ${BOLD}${WHITE}${TITLE}${RESET}"
   _dline
   printf '\n'
 }
@@ -60,11 +60,6 @@ _title() {
 _subtitle() {
   echo -e "\n${BOLD}${GREEN}$@${RESET}"
   _line
-}
-
-# imprime itens
-_item() {
-  echo -e "$1 ${BOLD}${YELLOW}$2${RESET}..."
 }
 
 # imprime mensagem da ação atual
@@ -189,7 +184,7 @@ _upgrade() {
 # instala pacote com apt install
 _package_install() {
   for PKG in $1; do
-    _item "Instalando" "$PKG"
+    echo -e "${BOLD}${MAGENTA}[${YELLOW}$PKG${MAGENTA}]${RESET}"
     sudo apt install $PKG -y
   done
 }
@@ -261,9 +256,8 @@ _set_insomnia() {
 
 _install_dbeaver() {
   local file_path="$DIR_TEMP/dbeaver-ce_latest_amd64.deb"
-  _item "Baixando .deb do" "Dbeaver"
+  echo "${BOLD}${MAGENTA}[${YELLOW}Dbeaver${MAGENTA}]${RESET}"
   wget -c -O "$file_path" "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
-  _item "Instalando" "Dbeaver"
   sudo dpkg -i "$file_path"
 }
 
