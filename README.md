@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/version-0.0.2-AAF683?style=flat">&nbsp;<img src="https://img.shields.io/badge/maintained%3F-Yes-339933?style=flat">&nbsp;<img src="https://img.shields.io/github/license/stenioas/popos-postinstall?style=flat">&nbsp;<img src="https://img.shields.io/github/issues/stenioas/popos-postinstall?color=violet&style=flat">&nbsp;<img src="https://img.shields.io/github/stars/stenioas/popos-postinstall?style=flat">
 </p>
 
-Script de pós-instalação do **Pop!\_OS 22.04 LTS**, que utilizo em minhas máquinas pessoais, fique a vontade para modificar e utilizar da forma que achar melhor! Se preferir você pode seguir meu [guia de instalação](https://github.com/stenioas/popos-postinstall/blob/main/postinstall_guide.md).
+Script de pós-instalação do **Pop!\_OS 22.04 LTS**, que utilizo em minhas máquinas pessoais, fique a vontade para modificar e utilizar da forma que achar melhor! Se preferir você pode seguir meu [guia de instalação](./postinstall_guide.md).
 
 ### Antes de começar
 
@@ -14,19 +14,15 @@ Instale todas as atualizações disponíveis, se optar por não seguir este pass
 
 💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
 
-Primeiro, altere a região dos espelhos para o Brasil.
-
-```bash
-sudo sed -i 's|http://us.|http://br.|' /etc/apt/sources.list.d/system.sources
-```
-
-Atualize o sistema.
+💡 **dica:** Caso ocorra algum erro ao atualizar pelo terminal você pode utilizar a Pop!\_Shop para instalar as atualizações.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-Atualize a partição de recuperação.
+Atualize a partição de recuperação caso ela exista.
+
+💡 **dica:** Se você utilizou o modo "Clean Install" essa partição foi criada automaticamente.
 
 ```bash
 sudo pop-upgrade recovery upgrade from-release
