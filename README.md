@@ -38,11 +38,15 @@ sudo reboot now
 
 Instala os seguintes pacotes do repositório oficial:
 
-`lame` `libavcodec-extra` `vlc` `gimp` `inkscape` `simplescreenrecorder` `transmission-gtk` `papirus-icon-theme` `gnome-tweaks` `dconf-editor` `htop` `gparted` `neofetch` `gpick` `code` `zsh` `fzf` `wine64` `wine32` `libasound2-plugins:i386` `libsdl2-2.0-0:i386` `libdbus-1-3:i386` `libsqlite3-0:i386` `lutris` `steam-installer`
+`lame` `libavcodec-extra` `vlc` `gimp` `inkscape` `simplescreenrecorder` `transmission-gtk` `papirus-icon-theme` `gnome-tweaks` `dconf-editor` `htop` `gparted` `neofetch` `gpick` `code` `devscripts` `shellcheck` `zsh` `wine64` `wine32` `libasound2-plugins:i386` `libsdl2-2.0-0:i386` `libdbus-1-3:i386` `libsqlite3-0:i386` `lutris` `steam-installer`
 
 Instala os seguintes apps externos:
 
-`Google Chrome` `Brave Browser` `Spotify` `Docker-cli` `Insomnia` `Dbeaver` `Oh-my-zsh` `Oh-my-zsh plugins` `Starship prompt` `Asdf-vm`
+`Google Chrome` `Brave Browser` `Spotify` `Docker-cli` `Insomnia` `Dbeaver`
+
+Extras:
+
+`oh-my-zsh` `fzf` `powerlevel10k` `asdf-vm` `papirus-folders` `McMojave-cursors`
 
 ### Como usar
 
