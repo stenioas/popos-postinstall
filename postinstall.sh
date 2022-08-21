@@ -50,7 +50,7 @@ PKGS_LIST_EXT="google-chrome-stable brave-browser spotify-client \
 _title() {
   clear
   _dline
-  echo -e "${CYAN}# ${BOLD}${WHITE}${TITLE}${RESET}"
+  echo -e "${CYAN} ${BOLD}${WHITE}${TITLE}${RESET}"
   _dline
   printf '\n'
 }
@@ -297,20 +297,20 @@ _set_ohmyzsh() {
   fi
 }
 
-_set_starship() {
-  _action "Instalando Starship prompt..."
-  if ! _is_package_installed "starship"; then
-    sh <( curl -fsSL "https://starship.rs/install.sh" ) -y &> /dev/null & PID=$!; _progress $PID
+_set_powerlevel10k() {
+  _action "Baixando powerlevel10k..."
+  if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k &> /dev/null & PID=$!; _progress $PID
   else
-    _done
+    _warn "já existe!"
   fi
 
-  _action "Adicionando starship ao arquivo ~/.zshrc..."
+  _action "Adicionando powerlevel10k ao arquivo ~/.zshrc..."
   if [[ -f "$HOME/.zshrc" ]]; then
-    if [[ -z $(grep -n 'eval "$(starship init zsh)"' ~/.zshrc) ]]; then
-      echo -e '\n# Starship prompt\neval "$(starship init zsh)"' >> ~/.zshrc & PID=$!; _progress $PID
+    if [[ -z $(grep -n 'ZSH_THEME="robbyrussell"' ~/.zshrc) ]]; then
+      sed -i -e "$(grep -n 'ZSH_THEME="robbyrussell"' ~/.zshrc | cut -f1 -d:)s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"powerlevel10k\/powerlevel10k\"/" ~/.zshrc & PID=$!; _progress $PID
     else
-      _warn "a linha já existe!"
+      _warn "o arquivo não está como esperado!"
     fi
   else
     _error "arquivo inexistente: .zshrc!"
@@ -393,7 +393,7 @@ _setup() {
   _subtitle "Customizando o terminal"
   _set_default_shell
   _set_ohmyzsh
-  _set_starship
+  _set_powerlevel10k
   _set_asdf
   _set_ohmyzsh_plugins
 
