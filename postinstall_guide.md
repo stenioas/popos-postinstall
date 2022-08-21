@@ -53,21 +53,19 @@ hostnamectl set-hostname "nome_da_sua_maquina"
 
 #### Atualize o sistema
 
+Instale todas as atualizações disponíveis, se optar por não seguir este passo o script poderá não funcionar corretamente!
+
 💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
 
-Primeiro, altere a região dos espelhos para o Brasil:
-
-```bash
-sudo sed -i 's|http://us.|http://br.|' /etc/apt/sources.list.d/system.sources
-```
-
-Atualize o sistema:
+💡 **dica:** Caso ocorra algum erro ao atualizar pelo terminal você pode utilizar a Pop!\_Shop para instalar as atualizações.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-Atualize a partição de recuperação:
+Atualize a partição de recuperação caso ela exista.
+
+💡 **dica:** Se você utilizou o modo "Clean Install" essa partição foi criada automaticamente.
 
 ```bash
 sudo pop-upgrade recovery upgrade from-release
