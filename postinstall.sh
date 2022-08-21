@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # Script   : install.sh
 # Descrição: Script de pós-instalação do Pop!_OS 22.04
-# Versão   : 0.0.2
+# Versão   : 0.0.3
 # Autor    : Stenio Silveira <stenioas@gmail.com>
 # Data     : 03/07/2022
 # Licença  : GNU/GPL v3.0
@@ -25,8 +25,9 @@ MAGENTA="$(tput setaf 5 2>/dev/null || printf '')"
 CYAN="$(tput setaf 6 2>/dev/null || printf '')"
 WHITE="$(tput setaf 7 2>/dev/null || printf '')"
 
-# título do script
-TITLE="Pop!_OS 22.04 LTS - Script de pós-instalação"
+# título e versão do script
+SCRIPT_TITLE="Pop!_OS 22.04 LTS - Script de pós-instalação"
+SCRIPT_VERSION="0.0.3"
 
 # diretório temporário
 DIR_TEMP="${HOME}/Downloads/temp"
@@ -83,8 +84,14 @@ OPTION_ASDF=1
 # imprime o título do script
 _print_title() {
   clear
+  local t_cols
+  t_cols=$(tput cols)
+  cols_version=${#SCRIPT_VERSION}
+  cols_title=${#SCRIPT_TITLE}
   _print_dline
-  echo -e " ${BOLD}${WHITE}${TITLE}${RESET}"
+  echo -ne "${BOLD}${YELLOW} ${SCRIPT_TITLE}${RESET}"
+  echo -ne "$(seq -s ' ' $(( t_cols - cols_title - cols_version - 2 )) | tr -d "[:digit:]")"
+  echo -e "${WHITE}v${SCRIPT_VERSION}${RESET}"
   _print_dline
 }
 
@@ -428,7 +435,7 @@ _set_themes() {
   _print_action "Instalando papirus-folders..."
   cd "$DIR_TEMP"/papirus-folders && ./install.sh &> /dev/null & PID=$!; _progress $PID
   
-  _print_action "Alterando cor das pastas para Adwaita..."
+  _print_action "Alterando cor das pastas para paleorange..."
   papirus-folders -C paleorange --theme Papirus-Dark &> /dev/null & PID=$!; _progress $PID
 
   _print_action "Baixando McMojave-cursors..."
