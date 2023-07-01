@@ -4,44 +4,7 @@
 
 📌 **22.04 LTS**
 
-<details><summary>Tabela de conteúdos</summary><br/>
-
-- [Iniciando](#begining)
-  - [Defina o nome da máquina](#set-hostname)
-  - [Atualize o sistema](#install-updates)
-- [Apps](#apps)
-  - [Utilitários](#app-utilities)
-  - [Google Chrome](#app-chrome)
-  - [Brave](#app-brave)
-  - [Spotify](#app-spotify)
-  - [Microsoft Edge](#app-edge)
-  - [Microsoft Teams](#app-teams)
-- [Terminal](#term)
-  - [Zsh](#term-zsh)
-  - [Oh My Zsh](#term-ohmyzsh)
-  - [Plugins](#term-plugins)
-  - [fzf](#term-fzf)
-  - [Starship prompt](#term-starship)
-- [Ambiente Dev](#ambiente-dev)
-  - [Visual Studio Code](#dev-code)
-  - [asdf-vm](#dev-asdf)
-  - [Docker CLI](#dev-docker)
-  - [Insomnia](#dev-insomnia)
-  - [Dbeaver](#dev-dbeaver)
-  - [Chave SSH](#dev-sshkey)
-- [Jogos](#jogos)
-  - [Dependências](#games-dependencies)
-  - [Steam](#games-steam)
-  - [Lutris](#games-lutris)
-  - [League of Legends](#games-lol)
-
-</details>
-
-<span id="begining"></span>
-
 ## Iniciando
-
-<span id="set-hostname"></span>
 
 #### Defina o nome da máquina
 
@@ -49,13 +12,9 @@
 hostnamectl set-hostname "nome_da_sua_maquina"
 ```
 
-<span id="install-updates"></span>
-
 #### Atualize o sistema
 
-Instale todas as atualizações disponíveis, se optar por não seguir este passo o script poderá não funcionar corretamente!
-
-💡 **info:** Se você acabou de instalar o sistema, prepara o café e relaxa porque pode demorar um pouco!
+Instale todas as atualizações disponíveis. Se optar por não seguir este passo, algo pode não sair como esperado!
 
 💡 **dica:** Caso ocorra algum erro ao atualizar pelo terminal você pode utilizar a Pop!\_Shop para instalar as atualizações.
 
@@ -77,21 +36,15 @@ Reinicie a máquina após concluir as atualizações!
 sudo reboot now
 ```
 
-<span id="apps"></span>
-
 ## Apps
 
-<span id="app-utilities"></span>
-
-#### Utilitários
+#### Essenciais
 
 💡 **info:** Alguns pacotes e aplicações que considero essenciais, como codecs, player multimídia, editor de imagens, gravador de tela, editor de desenho vetorial, tema de ícones, ajustes do Gnome, dentre outros.
 
 ```bash
-sudo apt install lame libavcodec-extra vlc gimp inkscape simplescreenrecorder transmission-gtk papirus-icon-theme gnome-tweaks dconf-editor htop gparted neofetch gpick -y
+sudo apt install lame libavcodec-extra vlc gimp inkscape simplescreenrecorder transmission-gtk papirus-icon-theme gnome-tweaks dconf-editor htop gparted neofetch tilix gpick zsh code ttf-mscorefonts-installer -y
 ```
-
-<span id="app-chrome"></span>
 
 #### Google Chrome
 
@@ -99,7 +52,7 @@ sudo apt install lame libavcodec-extra vlc gimp inkscape simplescreenrecorder tr
 curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list && sudo apt update && sudo apt install google-chrome-stable -y
 ```
 
-<span id="app-brave"></span>
+**Configurar conta:** Efetuar login!
 
 #### Brave
 
@@ -107,69 +60,27 @@ curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmo
 curl -fsSL https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/brave-browser-archive-keyring.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list > /dev/null && sudo apt update && sudo apt install brave-browser -y
 ```
 
-<span id="app-spotify"></span>
-
-#### Spotify
-
-```bash
-curl -fsSL https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo gpg --dearmor -o /usr/share/keyrings/spotify.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list && sudo apt update && sudo apt install spotify-client -y
-```
-
-<span id="app-edge"></span>
-
 #### Microsoft Edge
 
 ```bash
-curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge-dev.list > /dev/null && sudo apt update && sudo apt install microsoft-edge-stable -y
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list > /dev/null && sudo apt update && sudo apt install microsoft-edge-stable -y
 ```
-
-<span id="app-teams"></span>
-
-#### Microsoft Teams
-
-💡 **info:** Se você instalou o Microsoft Edge, uma mensagem para sobrescrever a chave gpg irá aparecer, tecle `s` e Enter.<br/>
-💡 **dica:** Eu prefiro a versão web do Teams, é mais atualizada e com menos bugs que a versão desktop.<br/>
-
-```bash
-curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/ms-teams stable main" | sudo tee /etc/apt/sources.list.d/teams.list > /dev/null && sudo apt update && sudo apt install teams -y
-```
-
-<span id="term"></span>
 
 ## Terminal
 
-<span id="term-zsh"></span>
-
-#### Zsh
-
-[![Repo-zsh](https://img.shields.io/badge/-Github-161b22?logo=github&style=flat)](https://github.com/zsh-users/zsh)
-
-```bash
-sudo apt install zsh -y
-```
-
-Altere o shell padrão:
+Altere o shell padrão para o zsh:
 
 ```bash
 chsh -s $(which zsh)
 ```
 
-<span id="term-ohmyzsh"></span>
-
-#### Oh My Zsh
-
-[![Repo-oh-my-zsh](https://img.shields.io/badge/-Github-161b22?logo=github&style=flat)](https://github.com/ohmyzsh/ohmyzsh)
+Instale o `Oh-My-Zsh`
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh; zsh
 ```
 
-<span id="term-plugins"></span>
-
-##### Plugins
-
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+Instal os plugins `zsh-syntax-highlighting` e `zsh-autosuggestions`
 
 ```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -181,51 +92,37 @@ Adicione os plugins ao arquivo `~/.zshrc`:
 sed -i -e "$(grep -n 'plugins=(git)' ~/.zshrc | cut -f1 -d:)s/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/" ~/.zshrc
 ```
 
+Instale o `Powerlevel10k`
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Configure `ZSH_THEME="powerlevel10k/powerlevel10k"` no seu `~/.zshrc`
+
 💡 **dica:** Reinicie a sessão para que as alterações surtam efeito.
 
-<span id="term-fzf"></span>
+Configure o `Powerlevel10k`
 
-#### fzf
-
-[![Repo-fzf](https://img.shields.io/badge/-Github-161b22?logo=github&style=flat)](https://github.com/junegunn/fzf)
+Configure o `Tilix`
 
 ```bash
-sudo apt install fzf -y
+cp /usr/share/applications/com.gexperts.Tilix.desktop ~/.local/share/applications
 ```
 
-<span id="term-starship"></span>
-
-#### Starship prompt
-
-[![Repo-starship](https://img.shields.io/badge/-Github-161b22?logo=github&style=flat)](https://github.com/starship/starship) [![Docs-starship](https://img.shields.io/badge/-docs-dd0b78?style=flat)](https://starship.rs/guide/)
+Edite o .desktop
 
 ```bash
-curl -sS https://starship.rs/install.sh | sh
+Exec=tilix --session=~/.config/tilix/tilix-config.json
 ```
-
-Adicione o Starship ao arquivo `~/.zshrc`:
-
-```bash
-echo -e '\n# Starship prompt\neval "$(starship init zsh)"' >> ~/.zshrc
-```
-
-<span id="ambiente-dev"></span>
 
 ## Ambiente Dev
 
-<span id="dev-code"></span>
-
 #### Visual Studio Code
 
-```bash
-sudo apt install code -y
-```
-
-<span id="dev-asdf"></span>
+Efetuar login!
 
 #### asdf-vm
-
-[![Repo-asdf-vm](https://img.shields.io/badge/-Github-161b22?logo=github&style=flat)](https://github.com/asdf-vm/asdf) [![Docs-asdf-vm](https://img.shields.io/badge/-docs-b744b8?style=flat)](https://asdf-vm.com/guide/getting-started.html)
 
 O asdf-vm é uma ferramenta de linha de comando para gerenciar multiplas versões de ferramentas/runtimes, similar ao `nvm` para Node.js, `sdkman` para Java, `rbenv` para Ruby, entre outros. Uma das vantagens do asdf é o seu sistema de plugins que elimina a necessidade de ter um gerenciador para cada ferramenta/runtime, facilitando a configuração do ambiente e melhorando a produtividade.
 
@@ -234,24 +131,6 @@ Você pode baixar o asdf-vm direto do repositório oficial:
 ```bash
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 ```
-
-<details><summary><b>Bash</b></summary><br/>
-
-Adicione o asdf ao arquivo `~/.bashrc`:
-
-```bash
-echo -e '\n# asdf\n. $HOME/.asdf/asdf.sh\n# asdf completions\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
-```
-
-Recarregue as configurações do bash:
-
-```bash
-source ~/.bashrc
-```
-
-</details>
-
-<details><summary><b>Zsh</b></summary><br/>
 
 Adicione o asdf ao arquivo `~/.zshrc`:
 
@@ -264,8 +143,6 @@ Recarregue as configurações do zsh:
 ```bash
 source ~/.zshrc
 ```
-
-</details>
 
 Adicionando o plugin do Java:
 
@@ -287,17 +164,11 @@ asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 
 Para outros plugins e como utilizá-los acesse [asdf-plugins.](https://github.com/asdf-vm/asdf-plugins)
 
-<span id="dev-docker"></span>
-
 #### Docker CLI
-
-[![Docs-docker](https://img.shields.io/badge/-docs-2496ED?style=flat)](https://docs.docker.com/get-started/)
 
 ```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list && sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 ```
-
-<span id="dev-insomnia"></span>
 
 #### Insomnia
 
@@ -305,19 +176,17 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 echo "deb [trusted=yes arch=amd64] https://download.konghq.com/insomnia-ubuntu/ default all" | sudo tee -a /etc/apt/sources.list.d/insomnia.list && sudo apt update && sudo apt install -y insomnia
 ```
 
-<span id="dev-dbeaver"></span>
+Importar configs.
 
 #### Dbeaver
 
 ```bash
-wget -c -O ~/Downloads/dbeaver-ce_latest_amd64.deb "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb" && sudo apt install -y ~/Downloads/dbeaver-ce_latest_amd64.deb
+wget -c -O ~/Downloads/dbeaver-ce_latest_amd64.deb "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb" && sudo dpkg -i ~/Downloads/dbeaver-ce_latest_amd64.deb
 ```
 
-<span id="dev-sshkey"></span>
+Importar configs.
 
 #### Chave SSH
-
-[![Docs-SSH](https://img.shields.io/badge/-docs-429BFF?style=flat)](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/about-ssh)
 
 Verifique se já existe alguma chave:
 
@@ -379,27 +248,7 @@ Verifique a conexão:
 ssh -T git@github.com
 ```
 
-Se for a primeira vez que você se conecta, deve autenticar o host. Se vir uma mensagem como essa:
-
-```
-> The authenticity of host 'github.com (IP ADDRESS)' can't be established.
-> RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
-> Are you sure you want to continue connecting (yes/no)?
-```
-
-Digite `yes` e tecle Enter.
-
-Verifique a conexão novamente:
-
-```bash
-ssh -T git@github.com
-```
-
-<span id="jogos"></span>
-
 ## Jogos
-
-<span id="games-dependencies"></span>
 
 #### Dependências
 
@@ -407,23 +256,17 @@ ssh -T git@github.com
 sudo apt install wine64 wine32 libasound2-plugins:i386 libsdl2-2.0-0:i386 libdbus-1-3:i386 libsqlite3-0:i386 -y
 ```
 
-<span id="games-steam"></span>
-
 #### Steam
 
 ```bash
 sudo apt install steam-installer -y
 ```
 
-<span id="games-lutris"></span>
-
 #### Lutris
 
 ```bash
 sudo apt install lutris -y
 ```
-
-<span id="games-lol"></span>
 
 #### League of Legends
 
@@ -441,6 +284,39 @@ sudo sysctl -w "abi.vsyscall32=0" && sudo sh -c 'echo "# League of Legends\nabi.
 
 > **Jogo > Gráficos > Optar pelo modo legado DX9**
 
----
+## Customização
 
-**&copy; 2022 Stenio Silveira**
+Gnome extensions:
+
+- [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
+- [Space Bar](https://extensions.gnome.org/extension/5090/space-bar/)
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
+- [Media Controls](https://extensions.gnome.org/extension/4470/media-controls/)
+- [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/)
+- [Audio Selector](https://extensions.gnome.org/extension/5135/audio-selector/)
+
+#### Temas
+
+Colloid-gtk-theme
+
+```bash
+git clone https://github.com/vinceliuice/Colloid-gtk-theme.git ~/Downloads/Colloid-gtk-theme/ && cd ~/Downloads/Colloid-gtk-theme/ && ./install.sh -t teal -s compact --tweaks gruvbox normal
+```
+
+Gruvbox-gtk-theme
+
+```bash
+git clone https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme.git ~/Downloads/Gruvbox-GTK-Theme/ && cd ~/Downloads/Gruvbox-GTK-Theme/ && cp -r themes/* ~/.themes/
+```
+
+Wallpapers
+
+```bash
+git clone https://github.com/AngelJumbo/gruvbox-wallpapers.git ~/Downloads/gruvbox-wallpapers/
+```
+
+#### Papirus folders
+
+```bash
+wget -qO- https://git.io/papirus-folders-install | sh && papirus-folders -C palebrown --theme Papirus-Dark
+```
