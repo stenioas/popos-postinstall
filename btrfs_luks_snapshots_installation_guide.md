@@ -1,6 +1,6 @@
 # Pop!\_OS 22.04: guia de instalação com btrfs, criptografia luks e snapshots automáticos com timeshift
 
-Este guia foi desenvolvido com base no trabalho original de **Willi Mutschler**. O texto é uma modificação do [guia original](https://mutschler.dev/linux/pop-os-btrfs-22-04/#step-4-reboot-some-checks-and-system-updates).
+Este guia foi desenvolvido com base no trabalho original de **Willi Mutschler**. O texto é uma modificação do <a href="https://mutschler.dev/linux/pop-os-btrfs-22-04/#step-4-reboot-some-checks-and-system-updates" target="_blank">guia original</a>.
 
 Neste guia, mostrarei como instalar o Pop!\_OS 22.04 com a seguinte estrutura:
 
